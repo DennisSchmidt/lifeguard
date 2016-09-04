@@ -1,0 +1,24 @@
+- content_for :body_class, "login-container"
+
+.content-wrapper
+  .content
+
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+      .panel.panel-body.login-form
+        .text-center
+          .icon-object.border-warning.text-warning
+            %i.icon-spinner11
+          %h5.content-group
+            Passwort vergessen?
+            %small.display-block Anweisungen zum Zurücksetzen anfragen
+        .form-group.has-feedback-left
+          = f.email_field :email, autofocus: true, placeholder: "E-Mail", class: "form-control"
+          .form-control-feedback
+            %i.icon-mail5.text-muted
+        .form-group
+          = f.button :button, class: "btn bg-pink-400 btn-block" do
+            Passwort zurücksetzen
+            %i.icon-arrow-right14.position-right
+        .content-divider.text-muted.form-group
+          %span Passwort wieder eingefallen?
+        = link_to "Log in", login_path, class: "btn btn-default btn-block content-group"

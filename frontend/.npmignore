@@ -1,0 +1,5 @@
+dev
+.npmrc
+.idea
+node_modules
+.DS_Store

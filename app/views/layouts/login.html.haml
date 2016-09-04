@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title P-261
+    %meta{"http-equiv" => "Content-Type", content: "text/html; charset=UTF-8"}
+    %meta{name: :viewport, content: "width=device-width, initial-scale=1, shrink-to-fit=no"}
+    %meta{name: :lang, content: I18n.locale}
+
+    -#%link{ rel: "shortcut icon", href: image_url("icons/favicon.ico")}
+
+    = csrf_meta_tag
+
+    %link{href: "https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900", rel: "stylesheet", type: "text/css"}
+    = stylesheet_link_tag "login", media: "all"
+    = javascript_include_tag "login"
+
+  %body{class: content_for(:body_class)}
+    .page-container
+      .page-content
+        =yield

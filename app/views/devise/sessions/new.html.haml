@@ -1,0 +1,39 @@
+- content_for :body_class, "login-container"
+
+.content-wrapper
+  .content
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .panel.panel-body.login-form
+        .text-center
+          .icon-object.border-slate-300.text-slate-300
+            %i.icon-reading
+          %h5.content-group
+            Login zu P-261
+            %small.display-block Deine Zugangsdaten
+        .form-group.has-feedback.has-feedback-left
+          = f.email_field :email, autofocus: true, placeholder: "E-Mail", class: "form-control"
+          .form-control-feedback
+            %i.icon-user.text-muted
+        .form-group.has-feedback.has-feedback-left
+          = f.password_field :password, autocomplete: "off", placeholder: "Passwort", class: "form-control"
+          .form-control-feedback
+            %i.icon-lock2.text-muted
+        - if devise_mapping.rememberable?
+          .form-group.login-options
+            .row
+              .col-sm-6
+                = f.label :remember_me, class: "checkbox-inline" do
+                  = f.check_box :remember_me, class: "styled"
+                  Angemeldet bleiben
+
+              .col-sm-6.text-right
+                - if devise_mapping.recoverable?
+                  = link_to "Passwort vergessen?", new_password_path(resource_name)
+        .form-group
+          = f.button :button, class: "btn bg-pink-400 btn-block" do
+            Login
+            %i.icon-arrow-right14.position-right
+        -#.content-divider.text-muted.form-group
+        -#  %span Noch keine Bestätigungsmail erhalten?
+        -#%a.btn.btn-default.btn-block.content-group{:href => "login_registration.html"} Sign up

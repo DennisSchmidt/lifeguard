@@ -1,0 +1,4 @@
+- flash.each do |type, message|
+  .alert{class: "alert-#{alert_class(type)}"}
+    %button.close{data: {dismiss: :alert}} &times;
+    = message

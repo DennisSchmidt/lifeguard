@@ -17,4 +17,7 @@
   %body{class: content_for(:body_class)}
     .page-container
       .page-content
-        =yield
+        .content-wrapper
+          .content
+            = flash_messages(flash)
+            = yield

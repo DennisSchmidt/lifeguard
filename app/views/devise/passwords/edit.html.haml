@@ -1,0 +1,28 @@
+- content_for :body_class, "login-container"
+
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+
+  = f.hidden_field :reset_password_token
+
+  .panel.panel-body.login-form
+    .text-center
+      .icon-object.border-warning.text-warning
+        %i.icon-floppy-disk
+      %h5.content-group
+        = t(".change_your_password")
+        %small.display-block= t(".min_6_chars")
+
+    = f.input :password, label: false, placeholder: t(".new_password"),
+      wrapper_html: { class: "has-feedback has-feedback-left" },
+      input_html: { autocomplete: "off" },
+      icon: :lock2
+
+    = f.input :password_confirmation, label: false, placeholder: t(".password_confirmation"),
+      wrapper_html: { class: "has-feedback has-feedback-left" },
+      input_html: { autocomplete: "off" },
+      icon: :lock2
+
+    .form-group
+      = f.button :button, class: "bg-pink-400 btn-block" do
+        = t(".save_new_password")
+        %i.icon-arrow-right14.position-right

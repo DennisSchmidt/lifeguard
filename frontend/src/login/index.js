@@ -1,4 +1,4 @@
-// import 'bootstrap'
+import 'bootstrap/js/alert'
 import Turbolinks from 'turbolinks'
 import '../../vendor/limitless/js/plugins/ui/ripple.min'
 import '../../vendor/limitless/js/plugins/forms/styling/uniform.min'

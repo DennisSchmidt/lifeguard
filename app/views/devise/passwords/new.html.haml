@@ -1,24 +1,23 @@
 - content_for :body_class, "login-container"
 
-.content-wrapper
-  .content
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  .panel.panel-body.login-form
+    .text-center
+      .icon-object.border-warning.text-warning
+        %i.icon-spinner11
+      %h5.content-group
+        = t(".forgot_your_password")
+        %small.display-block= t(".instructions_to_set_it_back")
 
-    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-      .panel.panel-body.login-form
-        .text-center
-          .icon-object.border-warning.text-warning
-            %i.icon-spinner11
-          %h5.content-group
-            Passwort vergessen?
-            %small.display-block Anweisungen zum Zurücksetzen anfragen
-        .form-group.has-feedback-left
-          = f.email_field :email, autofocus: true, placeholder: "E-Mail", class: "form-control"
-          .form-control-feedback
-            %i.icon-mail5.text-muted
-        .form-group
-          = f.button :button, class: "btn bg-pink-400 btn-block" do
-            Passwort zurücksetzen
-            %i.icon-arrow-right14.position-right
-        .content-divider.text-muted.form-group
-          %span Passwort wieder eingefallen?
-        = link_to "Log in", login_path, class: "btn btn-default btn-block content-group"
+    = f.input :email, label: false,
+      wrapper_html: { class: "has-feedback has-feedback-left" },
+      input_html: { autofocus: true },
+      icon: :mail5
+
+    .form-group
+      = f.button :button, class: "bg-pink-400 btn-block" do
+        = t(".reset_password")
+        %i.icon-arrow-right14.position-right
+    .content-divider.text-muted.form-group
+      %span= t(".remember_password")
+    = link_to t(".login"), login_path, class: "btn btn-default btn-block content-group"

@@ -4,6 +4,7 @@ var autoprefixer = require('autoprefixer')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var limitlessDir = path.resolve(__dirname, './vendor/limitless')
+var imagesDir = path.resolve(__dirname, './src/login/images')
 
 module.exports = {
   entry: {
@@ -48,17 +49,17 @@ module.exports = {
       test: /\.sass$/,
       loader: ExtractTextPlugin.extract({
         notExtractLoader: 'style-loader',
-        loader: 'css-loader?modules&importLoaders=1&localIdentName=[local]!postcss!sass-loader',
+        loader: 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]!postcss!resolve-url!sass-loader?sourceMap',
       })
     },{
       test: /\.less$/,
       loader: ExtractTextPlugin.extract({
         notExtractLoader: 'style-loader',
-        loader: 'css-loader?modules&importLoaders=1&localIdentName=[local]!less-loader',
+        loader: 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]!less-loader?sourceMap',
       })
     },{
       test: /\.(png|jpg)$/,
-      exclude: /node_modules/,
+      exclude: ["node_modules", "src"],
       loader: 'file?name=[path][name].[ext]&context=' + limitlessDir
     },{
       test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,

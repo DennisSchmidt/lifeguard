@@ -18,4 +18,7 @@ Rails.application.routes.draw do
       root :to => 'sessions#new', as: :unauthenticated
     end
   end
+
+  post "graphql", to: "graphql#create"
+  get "graphiql", to: "graphiql#index"
 end

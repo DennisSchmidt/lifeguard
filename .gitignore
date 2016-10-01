@@ -15,6 +15,7 @@
 .ruby-gemset
 .idea
 node_modules
+npm-debug.json
 
 # Ignore Byebug command history file.
 .byebug_history

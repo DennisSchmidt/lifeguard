@@ -1,15 +1,27 @@
 import React from 'react'
-import {Router, Route, browserHistory} from 'react-router'
+import BrowserRouter from 'react-router/BrowserRouter'
+import ApolloClient, { createNetworkInterface } from 'apollo-client'
+import { ApolloProvider } from 'react-apollo'
 
-import Layout from './layout/index'
-import WelcomePage from './pages/welcome'
+import App from './app'
+
+const networkInterface = createNetworkInterface({
+  uri: '/graphql',
+  opts: {
+    credentials: 'same-origin',
+  },
+})
+const client = new ApolloClient({
+  networkInterface,
+  shouldBatch: true
+})
 
 const Root = () => (
-  <Router history={browserHistory}>
-    <Route component={Layout}>
-      <Route path="/" component={WelcomePage} />
-    </Route>
-  </Router>
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ApolloProvider>
 )
 
 export default Root

@@ -19,13 +19,18 @@
     }
   },
   "dependencies": {
+    "apollo-client": "^0.4.20",
     "bootstrap": "^3.3.5",
     "graphiql": "^0.7.8",
     "graphql": "^0.7.1",
+    "graphql-tag": "^0.1.14",
     "jquery": "^2.1.4",
-    "react": "^15.3.1",
-    "react-dom": "^15.3.1",
-    "react-router": "^2.8.1",
+    "lodash": "^4.16.3",
+    "moment": "^2.15.1",
+    "react": "^15.3.2",
+    "react-apollo": "^0.5.7",
+    "react-dom": "^15.3.2",
+    "react-router": "^4.0.0-alpha.4",
     "turbolinks": "^5.0.0"
   },
   "devDependencies": {

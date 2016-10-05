@@ -1,0 +1,48 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Components
+ *
+ *  Common less file with imports of plugins and pages
+ *
+ *  Version: 1.0
+ *  Latest update: Feb 5, 2016
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Paths
+// ------------------------------
+@vendor-limitless-path: '../../../../vendor/limitless';
+
+// General path to core Bootstrap files
+@bootstrap-path: "@{vendor-limitless-path}/less/_bootstrap";
+
+// Path to Bootstrap file overrides
+@bootstrap-limitless-path: "@{vendor-limitless-path}/less/bootstrap-limitless";
+
+// Path to core files
+@core-path: "@{vendor-limitless-path}/less/core";
+
+// Path to components
+@components-path: "@{vendor-limitless-path}/less/components";
+
+
+// Core
+// ------------------------------
+
+// Import default Bootstrap variables and mixins
+@import "@{bootstrap-path}/variables.less";
+@import "@{bootstrap-path}/mixins.less";
+
+// Import custom mixins
+@import "@{core-path}/mixins/nav-vertical-align.less";
+
+// Import color variables
+@import "@{core-path}/colors/palette.less";
+
+// Import template's variables
+@import "@{core-path}/variables/variables-core.less";
+@import "@{core-path}/variables/variables-custom.less";
+
+//Path to icons
+@icon-font-path: "@{vendor-limitless-path}/css/icons/glyphicons/";

@@ -55,7 +55,7 @@ module.exports = {
           loader: 'css-loader?sourceMap&modules&importLoaders=1&localIdentName=[local]!less-loader?sourceMap',
         })
       },{
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|gif)$/,
         exclude: ["node_modules", "src"],
         loader: 'file?name=[path][name].[ext]&context=' + limitlessDir
       },{

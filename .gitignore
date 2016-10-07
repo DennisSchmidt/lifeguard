@@ -16,6 +16,9 @@
 .idea
 node_modules
 npm-debug.log
+build
+stats.json
+public/assets
 
 # Ignore Byebug command history file.
 .byebug_history

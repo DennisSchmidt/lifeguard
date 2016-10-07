@@ -6,7 +6,10 @@
   "license": "ISC",
   "scripts": {
     "dev": "npm run webpack:dev:server",
-    "webpack:dev:server": "better-npm-run start-webpack-dev-server"
+    "webpack:dev:server": "better-npm-run start-webpack-dev-server",
+    "prod": "npm run prod:build:client",
+    "prod:build:client": "better-npm-run prod-build-client && npm run prod:publish",
+    "prod:publish": "rimraf ../public/assets && mkdir ../public/assets && cp -a build/. ../public/assets/"
   },
   "betterScripts": {
     "start-webpack-dev-server": {
@@ -15,6 +18,12 @@
         "NODE_ENV": "development",
         "HOST": "localhost",
         "PORT": 8080
+      }
+    },
+    "prod-build-client": {
+      "command": "rimraf build && webpack --config webpack.prod.config.js --json > stats.json",
+      "env": {
+        "NODE_ENV": "production"
       }
     }
   },
@@ -53,10 +62,12 @@
     "postcss-loader": "^0.11.1",
     "react-hot-loader": "3.0.0-beta.5",
     "resolve-url-loader": "^1.6.0",
-    "sass-loader": "^4.0.1",
+    "rimraf": "^2.5.4",
+    "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.25",
-    "webpack-dev-server": "^2.1.0-beta.5"
+    "webpack-dev-server": "^2.1.0-beta.5",
+    "webpack-manifest-plugin": "^1.0.1"
   }
 }

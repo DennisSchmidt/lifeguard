@@ -2,26 +2,22 @@ var webpack = require('webpack')
 var path = require('path')
 var autoprefixer = require('autoprefixer')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
+var ManifestPlugin = require('webpack-manifest-plugin')
+
+var browserslist = require('./browserslist')
+
+var sharedManifest = {}
 
 module.exports = [{
   entry: {
-    app: [
-      `webpack-dev-server/client?http://${process.env.HOST}:${process.env.PORT}`,
-      'webpack/hot/only-dev-server',
-      'react-hot-loader/patch',
-      './src/app/dev.js'
-    ],
+    app: "./src/app/index.js",
     vendor: ["react", "react-dom", "react-router", "moment", "react-apollo", "apollo-client", "graphql-tag", "jquery"]
   },
 
   output: {
-    publicPath: `http://${process.env.HOST}:${process.env.PORT}/assets/`,
-    filename: "[name].js"
-  },
-
-  devtool: 'cheap-module-inline-source-map',
-  devServer: {
-    stats: 'errors-only'
+    filename: "[name]-[hash].min.js",
+    publicPath: "/assets/",
+    path: "build"
   },
 
   module: {
@@ -34,13 +30,13 @@ module.exports = [{
         test: /\.sass$/,
         loader: ExtractTextPlugin.extract({
           notExtractLoader: 'style-loader',
-          loader: 'css-loader?sourceMap!sass-loader?sourceMap',
+          loader: 'css-loader!sass-loader',
         })
       },{
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
           notExtractLoader: 'style-loader',
-          loader: 'css-loader?sourceMap!less-loader?sourceMap',
+          loader: 'css-loader!less-loader',
         })
       },{
         test: /\.(png|jpg|gif)$/,
@@ -68,7 +64,7 @@ module.exports = [{
 
   plugins: [
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: '[name]-[hash].min.css',
       allChunks: true
     }),
     new webpack.ProvidePlugin({
@@ -76,11 +72,30 @@ module.exports = [{
       jQuery: "jquery",
       "window.jQuery": "jquery"
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [ autoprefixer({ browsers: browserslist }) ]
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    }),
+    new ManifestPlugin({
+      fileName: ".manifest.json",
+      cache: sharedManifest
+    }),
+    new webpack.EnvironmentPlugin([
+      "NODE_ENV"
+    ]),
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(de)$/),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
-      filename: '[name].js'
+      filename: '[name]-[hash].js'
     })
   ]
 },{
@@ -88,8 +103,9 @@ module.exports = [{
     login: "./src/login/index.js"
   },
   output: {
-    publicPath: `http://${process.env.HOST}:${process.env.PORT}/assets/`,
-    filename: "[name].js"
+    filename: "[name]-[hash].min.js",
+    publicPath: "/assets/",
+    path: "build"
   },
   module: {
     rules: [
@@ -130,14 +146,33 @@ module.exports = [{
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: '[name]-[hash].min.css',
       allChunks: true
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
       "window.jQuery": "jquery"
-    })
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: __dirname,
+        postcss: [ autoprefixer({ browsers: browserslist }) ]
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    }),
+    new webpack.EnvironmentPlugin([
+      "NODE_ENV"
+    ]),
+    new ManifestPlugin({
+      fileName: ".manifest.json",
+      cache: sharedManifest
+    }),
   ]
 },{
   entry: {
@@ -145,8 +180,9 @@ module.exports = [{
   },
 
   output: {
-    publicPath: `http://${process.env.HOST}:${process.env.PORT}/assets/`,
-    filename: "[name].js"
+    filename: "[name]-[hash].min.js",
+    publicPath: "/assets/",
+    path: "build"
   },
   module: {
     rules: [
@@ -171,8 +207,21 @@ module.exports = [{
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: '[name].css',
+      filename: '[name]-[hash].min.css',
       allChunks: true
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    }),
+    new webpack.EnvironmentPlugin([
+      "NODE_ENV"
+    ]),
+    new ManifestPlugin({
+      fileName: ".manifest.json",
+      cache: sharedManifest
+    }),
   ]
 }]

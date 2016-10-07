@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  post 'graphql', to: 'graphql#create'
-  get 'graphiql', to: 'graphiql#index'
-
   devise_for :users,
              controllers: {
                  registrations: :registrations,
@@ -20,6 +17,10 @@ Rails.application.routes.draw do
 
     authenticated :user do
       root :to => 'app#index'
+
+      post 'graphql', to: 'graphql#create'
+      get 'graphiql', to: 'graphiql#index'
+
       get '*path', to: 'app#index'
     end
   end

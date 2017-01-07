@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import { asyncText } from '../../../../lib/text'
 
 import Icomoon from '../../../../components/icomoon'
+import RippleEffect from '../../../../components/ripple-effect'
 import './user.sass'
 
 const User = ({
@@ -13,18 +14,22 @@ const User = ({
   <div className="sidebar-user-material">
     <div className="category-content">
       <div className="sidebar-user-material-content">
-        <a href="#">
-          <img src={require("./avatar.jpg")} className="img-circle img-responsive" alt="" />
-        </a>
+        <RippleEffect>
+          <a href="#">
+            <img src={require("./avatar.jpg")} className="img-circle img-responsive" alt="" />
+          </a>
+        </RippleEffect>
 
         <h6>{asyncText(data, ["me.first_name", "me.surname"])}</h6>
         <span className="text-size-small">{asyncText(data, ["me.department.name"])}</span>
       </div>
 
       <div className="sidebar-user-material-menu">
-        <a href="#user-nav" data-toggle="collapse">
-          <span>Mein Account</span> <i className="caret" />
-        </a>
+        <RippleEffect>
+          <a href="#user-nav" data-toggle="collapse">
+            <span>Mein Account</span> <i className="caret" />
+          </a>
+        </RippleEffect>
       </div>
     </div>
 

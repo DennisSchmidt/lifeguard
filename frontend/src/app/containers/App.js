@@ -9,13 +9,14 @@ import '../styles/custom/index.sass'
 import Layout from './layout/index'
 import DashboardPage from './pages/dashboard'
 import UsersPage from './pages/users/index'
+import NotFound from './pages/404'
 
 const Root = () => (
   <Layout>
     <Match exactly pattern="/" component={DashboardPage} />
     <Match pattern="/admin/users" component={UsersPage} />
 
-    <Miss component={NoMatch}/>
+    <Miss component={NotFound}/>
   </Layout>
 )
 

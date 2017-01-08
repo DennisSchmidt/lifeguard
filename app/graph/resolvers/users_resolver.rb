@@ -14,7 +14,7 @@ class UsersResolver
   def filter(scope, args)
     scope = scope.where(id: args[:ids]) if args[:ids]
 
-    %w(first_name surname email).each do |attr|
+    %w(first_name last_name email).each do |attr|
       scope = scope.where("#{attr} LIKE '%#{args[attr]}%'") if args[attr]
     end
 

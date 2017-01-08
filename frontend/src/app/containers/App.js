@@ -7,14 +7,14 @@ import '../styles/main/index.less'
 import '../styles/custom/index.sass'
 
 import Layout from './layout/index'
-import DashboardPage from './pages/dashboard'
-import UsersPage from './pages/users/index'
+import routes from '../config/routes'
 import NotFound from './pages/404'
 
 const Root = () => (
   <Layout>
-    <Match exactly pattern="/" component={DashboardPage} />
-    <Match pattern="/admin/users" component={UsersPage} />
+    {routes.map((route, i) => (
+      <Match key={i} {...route}/>
+    ))}
 
     <Miss component={NotFound}/>
   </Layout>
@@ -22,11 +22,3 @@ const Root = () => (
 
 export default Root
 
-const NoMatch = ({
-  location
-}) => (
-  <div>
-    <h2>Whoops</h2>
-    <p>Sorry but {location} didn’t match any pages</p>
-  </div>
-)

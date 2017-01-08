@@ -20,7 +20,7 @@ const User = ({
           </a>
         </RippleEffect>
 
-        <h6>{asyncText(data, ["me.first_name", "me.surname"])}</h6>
+        <h6>{asyncText(data, ["me.first_name", "me.last_name"])}</h6>
         <span className="text-size-small">{asyncText(data, ["me.department.name"])}</span>
       </div>
 
@@ -72,7 +72,7 @@ const query = gql`
     me {
       id      
       first_name
-      surname
+      last_name
       department {
         name
       }

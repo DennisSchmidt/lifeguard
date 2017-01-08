@@ -5,8 +5,8 @@ UserType = GraphQL::ObjectType.define do
   field :id, !types.ID, "This id of this user"
   field :email, !types.String, "The email address of this user"
   field :first_name, types.String, "The first name of this user"
-  field :surname, types.String, "The surname of this user"
-  field :username, types.String,  "The username of this user (alternative display name to 'hide' real name)"
+  field :last_name, types.String, "The last name of this user"
+  field :nickname, types.String,  "The nickname of this user (alternative display name to 'hide' real name)"
 
   field :street, types.String,  "The home address of this user"
   field :place, types.String,  "The place (e.g. city) this user is from"

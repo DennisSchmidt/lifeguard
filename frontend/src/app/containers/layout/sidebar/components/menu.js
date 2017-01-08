@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import Icomoon from '../../../../components/icomoon'
 import RippleEffect from '../../../../components/ripple-effect'
+import MenuLink from '../../../../components/menu-link'
 
 const Menu = () => (
   <ul className="navigation navigation-main navigation-accordion">
@@ -10,12 +11,8 @@ const Menu = () => (
     <li className="navigation-header">
       <span>Admin</span> <Icomoon name="menu" title="Admin"/>
     </li>
-    <li className="active">
-      <RippleEffect>
-        <Link to="/admin/users"><Icomoon name="users4"/> <span>Benutzer</span></Link>
-      </RippleEffect>
-    </li>
 
+    <Link to="/admin/users">{(params) => <MenuLink label="Nutzer" icon="users4" {...params}/>}</Link>
   </ul>
 )
 

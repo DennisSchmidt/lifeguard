@@ -1,7 +1,9 @@
 import React from 'react'
 
-const NotFound = () => (
-  <div>Page not found</div>
+const NotFound = ({
+  location
+}) => (
+  <div>Page '{location.pathname}' was not found</div>
 )
 
 export default NotFound

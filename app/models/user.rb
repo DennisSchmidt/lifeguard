@@ -7,5 +7,5 @@ class User < ApplicationRecord
 
   belongs_to :department
   validates :department_id, presence: true
-  validates :first_name, :surname, presence: true, on: :update
+  validates :first_name, :last_name, presence: true, on: :update
 end

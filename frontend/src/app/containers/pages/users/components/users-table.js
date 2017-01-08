@@ -10,7 +10,7 @@ const UsersTable = ({data}) => (
     recordsKey="users"
     columns={{
       first_name: "Vorname",
-      surname: "Nachname",
+      last_name: "Nachname",
       email: "E-Mail",
       mobile_number: "Handynummer",
       "department.name": "Gliederung",
@@ -26,7 +26,7 @@ const query = gql`
     users {
       id      
       first_name
-      surname
+      last_name
       email    
       mobile_number  
       confirmed

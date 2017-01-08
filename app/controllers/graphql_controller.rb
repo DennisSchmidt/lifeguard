@@ -2,7 +2,7 @@ class GraphqlController < LoggedInController
   protect_from_forgery except: [:create]
 
   def create
-    schema = GraphQL::Schema.define(query: QueryType)
+    schema = GraphQL::Schema.define(query: QueryType, mutation: MutationType)
 
     result = schema.execute(
       params[:query],

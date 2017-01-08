@@ -6,6 +6,6 @@ class User < ApplicationRecord
          :confirmable
 
   belongs_to :department
-  validates :department_id, presence: true
+
   validates :first_name, :last_name, presence: true, on: :update
 end

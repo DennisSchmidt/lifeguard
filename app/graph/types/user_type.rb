@@ -15,17 +15,17 @@ UserType = GraphQL::ObjectType.define do
   field :phone_number, types.String,  "The phone number (land line) of this user"
   field :mobile_number, types.String,  "The mobile phone number of this user"
 
-  field :created_at, types.String, "The time at which this user was created"
+  field :created_at, IsoTimeType, "The time at which this user was created"
 
   # devise
-  field :confirmed_at, types.String, "The time at which this user confirmed his acount via email"
+  field :confirmed_at, IsoTimeType, "The time at which this user confirmed his acount via email"
   field :confirmed, types.Boolean do
     resolve -> (obj, _, _) {
       obj.confirmed_at.present?
     }
   end
-  field :last_sign_in_at, types.String, "The last time the user was logged in"
-  field :current_sign_in_at, types.String, "The time for the current login"
+  field :last_sign_in_at, IsoTimeType, "The last time the user was logged in"
+  field :current_sign_in_at, IsoTimeType, "The time for the current login"
 
   # associations
   field :department, DepartmentType

@@ -30,6 +30,7 @@
   "dependencies": {
     "apollo-client": "^0.4.20",
     "bootstrap": "^3.3.5",
+    "bootstrap-select": "^1.12.1",
     "formsy-react": "^0.19.0",
     "graphiql": "^0.7.8",
     "graphql": "^0.7.1",

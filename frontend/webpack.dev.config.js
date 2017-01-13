@@ -11,7 +11,10 @@ module.exports = [{
       'react-hot-loader/patch',
       './src/app/dev.js'
     ],
-    vendor: ["react", "react-dom", "react-router", "moment", "react-apollo", "apollo-client", "graphql-tag", "jquery"]
+    vendor: [
+      "react", "react-dom", "react-router", "moment", "react-apollo", "apollo-client", "graphql-tag", "jquery",
+      "formsy-react", "bootstrap-select"
+    ]
   },
 
   output: {

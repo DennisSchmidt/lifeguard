@@ -9,7 +9,7 @@ UserType = GraphQL::ObjectType.define do
   field :nickname, types.String,  "The nickname of this user (alternative display name to 'hide' real name)"
 
   field :street, types.String,  "The home address of this user"
-  field :place, types.String,  "The place (e.g. city) this user is from"
+  field :city, types.String,  "The city this user is from"
   field :zip_code, types.String,  "The zip code of this user"
 
   field :phone_number, types.String,  "The phone number (land line) of this user"

@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170108144626) do
     t.string   "last_name"
     t.string   "nickname"
     t.string   "street"
-    t.string   "place"
+    t.string   "city"
     t.integer  "zip_code"
     t.string   "phone_number"
     t.string   "mobile_number"

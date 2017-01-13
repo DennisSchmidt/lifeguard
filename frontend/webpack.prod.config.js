@@ -11,7 +11,10 @@ var sharedManifest = {}
 module.exports = [{
   entry: {
     app: "./src/app/index.js",
-    vendor: ["react", "react-dom", "react-router", "moment", "react-apollo", "apollo-client", "graphql-tag", "jquery"]
+    vendor: [
+      "react", "react-dom", "react-router", "moment", "react-apollo", "apollo-client", "graphql-tag", "jquery",
+      "formsy-react", "bootstrap-select"
+    ]
   },
 
   output: {

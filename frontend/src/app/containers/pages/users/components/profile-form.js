@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import Formsy from 'formsy-react'
 
 import RippleEffect from '../../../../components/ripple-effect'
 import Icomoon from '../../../../components/icomoon'
-import TextInput from './text-input'
+import InputField from '../../../../components/form/input-field'
+import SelectField from '../../../../components/form/select-field'
 
 
 class ProfileForm extends Component {
@@ -36,59 +37,56 @@ class ProfileForm extends Component {
     return (
       <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
 
-        <div className="form-group">
-          <div className="row">
-            <TextInput
-              label="Vorname"
-              name="user[first_name]"
-              wrapper={{className: 'col-md-6'}}
-            />
-            <TextInput
-              label="Nachname"
-              name="user[last_name]"
-              wrapper={{className: 'col-md-6'}}
-            />
+        <div className="row">
+          <div className="col-md-6">
+            <InputField label="Vorname" name="user[first_name]"/>
+          </div>
+          <div className="col-md-6">
+            <InputField label="Nachname" name="user[last_name]"/>
           </div>
         </div>
 
-        <div className="form-group">
-          <div className="row">
-            <TextInput
+        <div className="row">
+          <div className="col-md-6">
+            <InputField
               label="E-Mail"
               name="user[email]"
               validations="isExisty,isEmail"
-              wrapper={{className: 'col-md-6'}}
               required
               validationError="Bitte, eine korrekte E-Mail-Adresse angeben"
             />
-            <TextInput
+          </div>
+          <div className="col-md-6">
+            <SelectField
               label="Ortsgruppe"
               name="user[department_id]"
-              validations="isExisty"
-              wrapper={{className: 'col-md-6'}}
+              validations="isNumeric"
+              options={this.props.data.departments}
+              renderOptions={!this.props.data.loading}
+              prompt="Bitte Ortsgruppe wählen"
               required
               validationError="Bitte, Ortsgruppe auswählen"
             />
           </div>
         </div>
 
-        <div className="form-group">
-          <div className="row">
-            <TextInput
+        <div className="row">
+          <div className="col-md-6">
+            <InputField
               label="Passwort"
               name="user[password]"
               type="password"
               validations="isExisty"
-              wrapper={{className: 'col-md-6'}}
               required
               validationError="Bitte, Passwort angeben"
             />
-            <TextInput
+          </div>
+          <div className="col-md-6">
+            <InputField
               label="Passwortwiederholung"
               name="user[password_confirmation]"
               type="password"
               validations="equalsField:user[password]"
-              wrapper={{className: 'col-md-6'}}
               required
               validationError="Passwortwiederholung muss mit Passwort übereinstimmen"
             />
@@ -135,4 +133,13 @@ const createUser = gql`
   }
 `
 
-export default graphql(createUser)(ProfileForm)
+const query = gql`
+  query AllDepartments {
+    departments {
+      id
+      name
+    }
+  }
+`
+
+export default compose(graphql(query), graphql(createUser))(ProfileForm)

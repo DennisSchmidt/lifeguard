@@ -20,7 +20,7 @@ class SimpleForm extends Component {
   }
 
   handleServerResponse(data) {
-    const errors = dig(data, this.props.mutationName, 'errors')
+    const errors = dig(data, this.props.mutation, 'errors')
 
     errors.length == 0 ?  this.handleSuccess() : this.handleServerErrors(errors)
   }

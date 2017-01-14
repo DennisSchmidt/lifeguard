@@ -26,8 +26,6 @@ const SelectField = React.createClass({
     const errorMessage = this.getErrorMessage()
     const options = this.props.options || []
 
-    console.log(this.props.name + ":" +this.props.loading)
-
     return (
       <div className={['form-group', stateClass].join(' ')}>
         <label htmlFor={inputId} className="control-label">{this.props.label}</label>

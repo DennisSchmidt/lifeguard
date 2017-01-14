@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import Formsy from 'formsy-react'
-import _ from 'lodash'
 
-import { dig } from '../../../../lib/utils'
+
+import SimpleForm from '../../../../components/form'
 import RippleEffect from '../../../../components/ripple-effect'
 import Icomoon from '../../../../components/icomoon'
 import InputField from '../../../../components/form-fields/input-field'
-import SelectField from '../../../../components/form-fields/select-field'
+
+import SkillsSelect from './skills-select'
+import DepartmentSelect from './department-select'
 
 
 class ProfileForm extends Component {
@@ -18,27 +19,10 @@ class ProfileForm extends Component {
 
     this.disableButton = this.disableButton.bind(this)
     this.enableButton = this.enableButton.bind(this)
-    this.submit = this.submit.bind(this)
   }
 
-  submit(data) {
-    this.props.mutate({variables: data.user})
-      .then(({data}) => this.handleServerResponse(data))
-      .catch((error) => { console.log('there was an error sending the query', error) })
-  }
-
-  handleServerResponse(data) {
-    const errors = dig(data, 'createUser', 'errors')
-
-    errors.length == 0 ?  this.handleSuccess() : this.handleServerErrors(errors)
-  }
-
-  handleServerErrors(errors) {
-    this.refs.form.updateInputsWithError(_.fromPairs(errors.map(error => [`user[${error[0]}]`, error[1]])));
-  }
-
-  handleSuccess() {
-
+  componentDidUpdate() {
+    console.log("update...")
   }
 
   enableButton() {
@@ -50,43 +34,31 @@ class ProfileForm extends Component {
   }
 
   render () {
+    const formOptions = {
+      enableButton: this.enableButton,
+      disableButton: this.disableButton,
+      mutate: this.props.mutate,
+      mutationName: 'createUser'
+    }
+
     return (
-      <Formsy.Form ref="form" onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+      <SimpleForm { ...formOptions } >
 
         <div className="row">
           <div className="col-md-6">
-            <InputField label="Vorname" name="user[first_name]"/>
+            <InputField label="Vorname" name="first_name"/>
           </div>
           <div className="col-md-6">
-            <InputField label="Nachname" name="user[last_name]"/>
+            <InputField label="Nachname" name="last_name"/>
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-6">
-            <SelectField
-              label="Fähigkeiten"
-              name="user[skill_ids]"
-              validations="isExisty"
-              options={this.props.data.skills}
-              loading={this.props.data.loading}
-              prompt="Bitte Fähigkeiten wählen"
-              multiple
-              required
-              validationError="Bitte Fähigkeiten auswählen"
-            />
+            <SkillsSelect/>
           </div>
           <div className="col-md-6">
-            <SelectField
-              label="Ortsgruppe"
-              name="user[department_id]"
-              validations="isNumeric"
-              options={this.props.data.departments}
-              loading={this.props.data.loading}
-              prompt="Bitte Ortsgruppe wählen"
-              required
-              validationError="Bitte Ortsgruppe auswählen"
-            />
+            <DepartmentSelect />
           </div>
         </div>
 
@@ -94,7 +66,7 @@ class ProfileForm extends Component {
           <div className="col-md-4">
             <InputField
               label="E-Mail"
-              name="user[email]"
+              name="email"
               validations="isExisty,isEmail"
               required
               validationError="Bitte eine korrekte E-Mail-Adresse angeben"
@@ -103,7 +75,7 @@ class ProfileForm extends Component {
           <div className="col-md-4">
             <InputField
               label="Passwort"
-              name="user[password]"
+              name="password"
               type="password"
               validations="isExisty"
               required
@@ -113,9 +85,9 @@ class ProfileForm extends Component {
           <div className="col-md-4">
             <InputField
               label="Passwortbestätigung"
-              name="user[password_confirmation]"
+              name="password_confirmation"
               type="password"
-              validations="equalsField:user[password]"
+              validations="equalsField:password"
               required
               validationError="Passwortbestätigung muss mit Passwort übereinstimmen"
             />
@@ -130,7 +102,7 @@ class ProfileForm extends Component {
             </button>
           </RippleEffect>
         </div>
-      </Formsy.Form>
+      </SimpleForm>
     )
   }
 }
@@ -162,17 +134,4 @@ const createUser = gql`
   }
 `
 
-const query = gql`
-  query AllDepartmentAndSkills {
-    departments {
-      id
-      name
-    }
-    skills {
-      id
-      name
-    }
-  }
-`
-
-export default compose(graphql(query), graphql(createUser))(ProfileForm)
+export default graphql(createUser)(ProfileForm)

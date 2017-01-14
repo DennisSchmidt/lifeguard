@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Formsy from 'formsy-react'
+import _ from 'lodash'
 
 import { nameToId } from '../../lib/utils'
 
@@ -11,7 +12,7 @@ const SelectField = React.createClass({
   },
 
   componentDidMount() {
-    $(this.refs.selectField).selectpicker(settings(this.props))
+    $(this.refs.selectField).selectpicker()
   },
 
   componentDidUpdate() {
@@ -23,6 +24,9 @@ const SelectField = React.createClass({
 
     const stateClass = this.showRequired() ? 'required' : this.showError() ? 'has-error' : null
     const errorMessage = this.getErrorMessage()
+    const options = this.props.options || []
+
+    console.log(this.props.name + ":" +this.props.loading)
 
     return (
       <div className={['form-group', stateClass].join(' ')}>
@@ -35,8 +39,9 @@ const SelectField = React.createClass({
           name={this.props.name}
           id={inputId}
           multiple={this.props.multiple}
+          title={this.props.prompt}
         >
-          {selectOptions(this.props).map(
+          {options.map(
             ({id, name}) => <option key={id} value={id}>{name}</option>
           )}
         </select>
@@ -47,19 +52,3 @@ const SelectField = React.createClass({
 })
 
 export default SelectField
-
-const settings = ({multiple, prompt}) => {
-  let opts = {}
-  if(multiple) opts = { ...opts, noneSelectedText: prompt}
-
-  return opts
-}
-
-const selectOptions = ({prompt, multiple, options = []}) => {
-  let opts = []
-
-  if(prompt && !multiple) opts.push({id: '', name: prompt})
-  options.forEach(option => opts.push(option))
-
-  return opts
-}

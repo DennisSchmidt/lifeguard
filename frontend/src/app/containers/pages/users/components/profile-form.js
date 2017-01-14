@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import Formsy from 'formsy-react'
+import _ from 'lodash'
 
+import { dig } from '../../../../lib/utils'
 import RippleEffect from '../../../../components/ripple-effect'
 import Icomoon from '../../../../components/icomoon'
-import InputField from '../../../../components/form/input-field'
-import SelectField from '../../../../components/form/select-field'
+import InputField from '../../../../components/form-fields/input-field'
+import SelectField from '../../../../components/form-fields/select-field'
 
 
 class ProfileForm extends Component {
@@ -21,8 +23,22 @@ class ProfileForm extends Component {
 
   submit(data) {
     this.props.mutate({variables: data.user})
-      .then(({ data }) => { console.log('got data', data) })
+      .then(({data}) => this.handleServerResponse(data))
       .catch((error) => { console.log('there was an error sending the query', error) })
+  }
+
+  handleServerResponse(data) {
+    const errors = dig(data, 'createUser', 'errors')
+
+    errors.length == 0 ?  this.handleSuccess() : this.handleServerErrors(errors)
+  }
+
+  handleServerErrors(errors) {
+    this.refs.form.updateInputsWithError(_.fromPairs(errors.map(error => [`user[${error[0]}]`, error[1]])));
+  }
+
+  handleSuccess() {
+
   }
 
   enableButton() {
@@ -35,7 +51,7 @@ class ProfileForm extends Component {
 
   render () {
     return (
-      <Formsy.Form onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
+      <Formsy.Form ref="form" onValidSubmit={this.submit} onValid={this.enableButton} onInvalid={this.disableButton}>
 
         <div className="row">
           <div className="col-md-6">
@@ -57,7 +73,7 @@ class ProfileForm extends Component {
               prompt="Bitte Fähigkeiten wählen"
               multiple
               required
-              validationError="Bitte, Fähigkeiten auswählen"
+              validationError="Bitte Fähigkeiten auswählen"
             />
           </div>
           <div className="col-md-6">
@@ -69,7 +85,7 @@ class ProfileForm extends Component {
               loading={this.props.data.loading}
               prompt="Bitte Ortsgruppe wählen"
               required
-              validationError="Bitte, Ortsgruppe auswählen"
+              validationError="Bitte Ortsgruppe auswählen"
             />
           </div>
         </div>
@@ -81,7 +97,7 @@ class ProfileForm extends Component {
               name="user[email]"
               validations="isExisty,isEmail"
               required
-              validationError="Bitte, eine korrekte E-Mail-Adresse angeben"
+              validationError="Bitte eine korrekte E-Mail-Adresse angeben"
             />
           </div>
           <div className="col-md-4">
@@ -91,17 +107,17 @@ class ProfileForm extends Component {
               type="password"
               validations="isExisty"
               required
-              validationError="Bitte, Passwort angeben"
+              validationError="Bitte Passwort angeben"
             />
           </div>
           <div className="col-md-4">
             <InputField
-              label="Passwortwiederholung"
+              label="Passwortbestätigung"
               name="user[password_confirmation]"
               type="password"
               validations="equalsField:user[password]"
               required
-              validationError="Passwortwiederholung muss mit Passwort übereinstimmen"
+              validationError="Passwortbestätigung muss mit Passwort übereinstimmen"
             />
           </div>
         </div>

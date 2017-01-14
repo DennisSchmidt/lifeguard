@@ -1,29 +1,32 @@
 import React, { Component } from 'react'
-import Formsy from 'formsy-react'
-import _ from 'lodash'
+import { HOC as FormsyElement} from 'formsy-react'
 
 import { nameToId } from '../../lib/utils'
 
-const SelectField = React.createClass({
-  mixins: [Formsy.Mixin],
+class SelectField extends Component {
+  constructor(props) {
+    super(props)
+
+    this.changeValue = this.changeValue.bind(this)
+  }
 
   changeValue(event) {
-    this.setValue(event.currentTarget.value);
-  },
+    this.props.setValue(event.currentTarget.value);
+  }
 
   componentDidMount() {
     $(this.refs.selectField).selectpicker()
-  },
+  }
 
   componentDidUpdate() {
     $(this.refs.selectField).selectpicker('refresh')
-  },
+  }
 
   render () {
     const inputId = nameToId(this.props.name)
 
-    const stateClass = this.showRequired() ? 'required' : this.showError() ? 'has-error' : null
-    const errorMessage = this.getErrorMessage()
+    const stateClass = this.props.showRequired() ? 'required' : this.props.showError() ? 'has-error' : null
+    const errorMessage = this.props.getErrorMessage()
     const options = this.props.options || []
 
     return (
@@ -47,6 +50,6 @@ const SelectField = React.createClass({
       </div>
     )
   }
-})
+}
 
-export default SelectField
+export default FormsyElement(SelectField)

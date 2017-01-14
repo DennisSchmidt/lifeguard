@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
-import Formsy from 'formsy-react'
+import { HOC as FormsyElement} from 'formsy-react'
 
 import Icomoon from '../icomoon'
 import { nameToId } from '../../lib/utils'
 
-const InputField = React.createClass({
-  mixins: [Formsy.Mixin],
+class InputField extends Component {
+  constructor(props) {
+    super(props)
+    this.changeValue = this.changeValue.bind(this)
+  }
 
   changeValue(event) {
-    this.setValue(event.currentTarget.value);
-  },
+    this.props.setValue(event.currentTarget.value);
+  }
 
   render() {
     const inputId = nameToId(this.props.name)
 
-    const stateClass = this.showRequired() ? 'required has-feedback' : this.showError() ? 'has-error' : null
-    const errorMessage = this.getErrorMessage()
+    const stateClass = this.props.showRequired() ? 'required has-feedback' : this.props.showError() ? 'has-error' : null
+    const errorMessage = this.props.getErrorMessage()
 
     return (
       <div className={['form-group', stateClass].join(' ')}>
@@ -28,14 +31,14 @@ const InputField = React.createClass({
           onChange={this.changeValue}
           autoComplete="off"
         />
-        { this.showRequired() && <IsRequiredIcon /> }
+        { this.props.showRequired() && <IsRequiredIcon /> }
         { errorMessage && <span className="help-block">{errorMessage}</span> }
       </div>
     );
   }
-})
+}
 
-export default InputField
+export default FormsyElement(InputField)
 
 const IsRequiredIcon = ({
   name

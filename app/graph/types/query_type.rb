@@ -6,5 +6,6 @@ end
 QueryType.fields = QueryType.fields.merge({
   "me" => MeField,
   "users" => UsersField,
-  "departments" => DepartmentsField
+  "departments" => DepartmentsField,
+  "skills" => SkillsField
 })

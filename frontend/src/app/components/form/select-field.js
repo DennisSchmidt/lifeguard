@@ -11,11 +11,11 @@ const SelectField = React.createClass({
   },
 
   componentDidMount() {
-    $('.bootstrap-select').selectpicker()
+    $(this.refs.selectField).selectpicker(settings(this.props))
   },
 
   componentDidUpdate() {
-    $('.bootstrap-select').selectpicker('refresh')
+    $(this.refs.selectField).selectpicker('refresh')
   },
 
   render () {
@@ -29,15 +29,16 @@ const SelectField = React.createClass({
         <label htmlFor={inputId} className="control-label">{this.props.label}</label>
 
         <select
+          ref="selectField"
           className="bootstrap-select form-control"
           onChange={this.changeValue}
           name={this.props.name}
           id={inputId}
+          multiple={this.props.multiple}
         >
-          { this.props.prompt && <option className="test">{this.props.prompt}</option> }
-          { this.props.renderOptions && this.props.options
-              .map(({id, name}) => <option key={id} value={id}>{name}</option>)
-          }
+          {selectOptions(this.props).map(
+            ({id, name}) => <option key={id} value={id}>{name}</option>
+          )}
         </select>
         { errorMessage && <span className="help-block">{errorMessage}</span> }
       </div>
@@ -46,3 +47,19 @@ const SelectField = React.createClass({
 })
 
 export default SelectField
+
+const settings = ({multiple, prompt}) => {
+  let opts = {}
+  if(multiple) opts = { ...opts, noneSelectedText: prompt}
+
+  return opts
+}
+
+const selectOptions = ({prompt, multiple, options = []}) => {
+  let opts = []
+
+  if(prompt && !multiple) opts.push({id: '', name: prompt})
+  options.forEach(option => opts.push(option))
+
+  return opts
+}

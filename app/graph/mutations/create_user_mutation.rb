@@ -9,6 +9,7 @@ CreateUserMutation = GraphQL::Field.define do
   argument :password, types.String
   argument :password_confirmation, types.String
   argument :department_id, types.ID
+  argument :skill_ids, types[types.ID]
 
   resolve ->(object, inputs, ctx) {
     user = User.create(inputs.to_h)

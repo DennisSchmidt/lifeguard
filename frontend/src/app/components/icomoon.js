@@ -4,9 +4,10 @@ import _ from 'lodash'
 const Icomoon = ({
   name,
   title,
-  className
+  className,
+  style
 }) => (
-  <i className={_.compact([`icon-${name}`, className]).join(' ')} title={title} />
+  <i className={_.compact([`icon-${name}`, className]).join(' ')} title={title} style={style}/>
 )
 
 export default Icomoon

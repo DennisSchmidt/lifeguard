@@ -1,4 +1,4 @@
-class Department < ActiveRecord::Base
+class Department < ApplicationRecord
   has_many :members, class_name: "User"
 
   validates :state, :group, presence: true

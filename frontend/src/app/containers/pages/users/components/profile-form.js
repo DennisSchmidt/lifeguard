@@ -48,12 +48,16 @@ class ProfileForm extends Component {
 
         <div className="row">
           <div className="col-md-6">
-            <InputField
-              label="E-Mail"
-              name="user[email]"
-              validations="isExisty,isEmail"
+            <SelectField
+              label="Fähigkeiten"
+              name="user[skill_ids]"
+              validations="isExisty"
+              options={this.props.data.skills}
+              loading={this.props.data.loading}
+              prompt="Bitte Fähigkeiten wählen"
+              multiple
               required
-              validationError="Bitte, eine korrekte E-Mail-Adresse angeben"
+              validationError="Bitte, Fähigkeiten auswählen"
             />
           </div>
           <div className="col-md-6">
@@ -62,7 +66,7 @@ class ProfileForm extends Component {
               name="user[department_id]"
               validations="isNumeric"
               options={this.props.data.departments}
-              renderOptions={!this.props.data.loading}
+              loading={this.props.data.loading}
               prompt="Bitte Ortsgruppe wählen"
               required
               validationError="Bitte, Ortsgruppe auswählen"
@@ -71,7 +75,16 @@ class ProfileForm extends Component {
         </div>
 
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
+            <InputField
+              label="E-Mail"
+              name="user[email]"
+              validations="isExisty,isEmail"
+              required
+              validationError="Bitte, eine korrekte E-Mail-Adresse angeben"
+            />
+          </div>
+          <div className="col-md-4">
             <InputField
               label="Passwort"
               name="user[password]"
@@ -81,7 +94,7 @@ class ProfileForm extends Component {
               validationError="Bitte, Passwort angeben"
             />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             <InputField
               label="Passwortwiederholung"
               name="user[password_confirmation]"
@@ -106,8 +119,6 @@ class ProfileForm extends Component {
   }
 }
 
-
-
 const createUser = gql`
   mutation createUser(
     $first_name: String, 
@@ -115,7 +126,8 @@ const createUser = gql`
     $email: String, 
     $password: String, 
     $password_confirmation: String, 
-    $department_id: ID
+    $department_id: ID,
+    $skill_ids: [ID]
     ) {
     createUser(
       first_name: $first_name, 
@@ -124,6 +136,7 @@ const createUser = gql`
       password: $password, 
       password_confirmation: $password_confirmation
       department_id: $department_id
+      skill_ids: $skill_ids
     ) {
       user {
         first_name
@@ -134,8 +147,12 @@ const createUser = gql`
 `
 
 const query = gql`
-  query AllDepartments {
+  query AllDepartmentAndSkills {
     departments {
+      id
+      name
+    }
+    skills {
       id
       name
     }

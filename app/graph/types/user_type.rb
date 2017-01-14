@@ -29,5 +29,6 @@ UserType = GraphQL::ObjectType.define do
 
   # associations
   field :department, DepartmentType
+  field :skills, types[SkillType]
 end
 

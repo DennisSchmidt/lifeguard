@@ -4,6 +4,8 @@ import { Link } from 'react-router'
 import Icomoon from '../../../components/icomoon'
 import ProfileForm from './components/profile-form'
 
+import './new.sass'
+
 const New = ({
 
 }) => (
@@ -47,6 +49,14 @@ const New = ({
 
           </div>
 
+        </div>
+
+        <div className="col-lg-3">
+          <div className="panel panel-flat">
+            <div className="panel-body text-center">
+              <Icomoon name="user" className="default-avatar-icon"/>
+            </div>
+          </div>
         </div>
       </div>
 

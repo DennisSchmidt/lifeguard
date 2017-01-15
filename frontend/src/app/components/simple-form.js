@@ -8,7 +8,7 @@ import { dig } from '../lib/utils'
 class SimpleForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { canSubmit: false }
+    this.state = { canRedirect: false }
 
     this.submit = this.submit.bind(this)
   }
@@ -22,15 +22,11 @@ class SimpleForm extends Component {
   handleServerResponse(data) {
     const errors = dig(data, this.props.mutation, 'errors')
 
-    errors.length == 0 ?  this.handleSuccess() : this.handleServerErrors(errors)
+    errors.length == 0 ?  this.props.onSuccess() : this.handleServerErrors(errors)
   }
 
   handleServerErrors(errors) {
     this.refs.form.updateInputsWithError(_.fromPairs(errors))
-  }
-
-  handleSuccess() {
-    this.props.redirect()
   }
 
   render () {

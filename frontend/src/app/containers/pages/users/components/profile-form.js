@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import SimpleForm from '../../../../components/simple-form'
-import disableableForm from '../../../../components/hoc/disableable-form'
+import simpleForm from '../../../../components/hoc/simple-form'
 
 import RippleEffect from '../../../../components/ripple-effect'
 import Icomoon from '../../../../components/icomoon'
@@ -13,7 +13,7 @@ import SkillsSelect from './skills-select'
 import DepartmentSelect from './department-select'
 
 const ProfileForm = (props) => (
-  <SimpleForm { ...props } mutation="createUser">
+  <SimpleForm { ...props } >
 
     <div className="row">
       <div className="col-md-6">
@@ -103,4 +103,4 @@ const createUser = gql`
   }
 `
 
-export default graphql(createUser)(disableableForm(ProfileForm))
+export default simpleForm({createUser}, {redirectTo: '/admin/users'})(ProfileForm)

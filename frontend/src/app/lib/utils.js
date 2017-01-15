@@ -12,3 +12,7 @@ export const dig = (rock, ...route) => {
 export const isOdd = (number) => !!(number % 2)
 
 export const nameToId = (name) => name.replace(/(\[|_)/g, '-').replace(']', '')
+
+export const displayNameForHOC = (WrappedComponent) => {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
+}

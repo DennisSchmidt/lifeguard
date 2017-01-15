@@ -30,7 +30,7 @@ class SimpleForm extends Component {
   }
 
   handleSuccess() {
-
+    this.props.redirect()
   }
 
   render () {

@@ -30,7 +30,6 @@ const simpleForm = (...params) => {
         this.setState({canSubmit: false})
       }
 
-      // TODO: redirect with message
       redirect() {
         this.setState({canRedirect: true})
       }
@@ -45,9 +44,16 @@ const simpleForm = (...params) => {
           mutate: this.props.mutate
         }
 
+        const redirectParams = {
+          pathname: params[1].redirectTo,
+          state: {
+            flash: { type: 'success', message: params[1].successMessage }
+          }
+        }
+
         return (
           this.state.canRedirect
-            ? <Redirect to={params[1].redirectTo}/>
+            ? <Redirect to={redirectParams}/>
             : <WrappedForm {...formOptions} />
         )
       }

@@ -4,9 +4,11 @@ import { Link } from 'react-router'
 import Icomoon from '../../../components/icomoon'
 import HeadingLink from '../../../components/heading-link'
 import UsersTable from './components/users-table'
+import FlashMessage from '../../../components/flash-message'
 
 const Index = ({
-  data
+  data,
+  location
 }) => (
   <div className="content-wrapper">
     <div className="page-header">
@@ -33,6 +35,7 @@ const Index = ({
     </div>
 
     <div className="content">
+      <FlashMessage location={location} />
       <div className="panel panel-flat">
         <div className="panel-body">
           <UsersTable />

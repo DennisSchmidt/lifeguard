@@ -103,4 +103,9 @@ const createUser = gql`
   }
 `
 
-export default simpleForm({createUser}, {redirectTo: '/admin/users'})(ProfileForm)
+export default simpleForm({
+  createUser
+}, {
+  redirectTo: '/admin/users',
+  successMessage: 'Nutzer wurde erfolgreich angelegt.' //TODO: add link to new user
+})(ProfileForm)

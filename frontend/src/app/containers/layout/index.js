@@ -4,7 +4,8 @@ import Navigation from './navigation/index'
 import Sidebar from './sidebar/index'
 
 const Layout = ({
-  children
+  children,
+  location
 }) => (
   <div>
     <Navigation />

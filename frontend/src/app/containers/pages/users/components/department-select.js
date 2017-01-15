@@ -7,7 +7,7 @@ import SelectField from '../../../../components/form-fields/select-field'
 const DepartmentSelect = ({data}) => (
   <SelectField
     label="Ortsgruppe"
-    name="department_id"
+    name="department"
     validations="isNumeric"
     options={data.departments}
     loading={data.loading}

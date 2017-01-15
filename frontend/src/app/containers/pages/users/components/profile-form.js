@@ -83,8 +83,8 @@ const createUser = gql`
     $email: String, 
     $password: String, 
     $password_confirmation: String, 
-    $department_id: ID,
-    $skill_ids: [ID]
+    $department: ID,
+    $skills: [ID]
     ) {
     createUser(
       first_name: $first_name, 
@@ -92,8 +92,8 @@ const createUser = gql`
       email: $email, 
       password: $password, 
       password_confirmation: $password_confirmation
-      department_id: $department_id
-      skill_ids: $skill_ids
+      department_id: $department
+      skill_ids: $skills
     ) {
       user {
         first_name

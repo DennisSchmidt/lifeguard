@@ -7,7 +7,7 @@ import SelectField from '../../../../components/form-fields/select-field'
 const SkillsSelect = ({data}) => (
   <SelectField
     label="Fähigkeiten"
-    name="skill_ids"
+    name="skills"
     validations="isExisty"
     options={data.skills}
     loading={data.loading}

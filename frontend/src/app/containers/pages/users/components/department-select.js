@@ -4,7 +4,6 @@ import gql from 'graphql-tag'
 
 import SelectField from '../../../../components/form-fields/select-field'
 
-//TODO: fix wierd behavior after page refresh -> selected option is not marked correctly
 const DepartmentSelect = ({data}) => (
   <SelectField
     label="Ortsgruppe"

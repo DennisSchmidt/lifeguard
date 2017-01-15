@@ -8,6 +8,7 @@ class SelectField extends Component {
     super(props)
 
     this.changeValue = this.changeValue.bind(this)
+    this.shouldComponentUpdate = this.shouldComponentUpdate.bind(this)
   }
 
   changeValue(event) {
@@ -20,6 +21,11 @@ class SelectField extends Component {
 
   componentDidUpdate() {
     $(this.refs.selectField).selectpicker('refresh')
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if(this.props.options == undefined && nextProps.options == undefined) return false
+    return true
   }
 
   render () {
@@ -40,8 +46,10 @@ class SelectField extends Component {
           name={this.props.name}
           id={inputId}
           multiple={this.props.multiple}
-          title={this.props.prompt}
+          title={this.props.multiple ? this.props.prompt : null}
         >
+          {/*This is a workaround until bootstrap-select handles 'refresh' and :title properly for none multiple selects*/}
+          {!this.props.multiple && <option style={{display: 'none'}}>{this.props.prompt}</option>}
           {options.map(
             ({id, name}) => <option key={id} value={id}>{name}</option>
           )}

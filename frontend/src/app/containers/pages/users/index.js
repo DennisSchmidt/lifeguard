@@ -36,11 +36,7 @@ const Index = ({
 
     <div className="content">
       <FlashMessage location={location} />
-      <div className="panel panel-flat">
-        <div className="panel-body">
-          <UsersTable />
-        </div>
-      </div>
+      <UsersTable />
     </div>
   </div>
 )

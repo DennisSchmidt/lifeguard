@@ -7,8 +7,8 @@ import { dig } from '../lib/utils'
 import Icomoon from './icomoon'
 
 const Table = ({
-  data,
-  recordsKey,
+  loading,
+  items,
   columns,
   size
 }) => (
@@ -23,44 +23,44 @@ const Table = ({
         }
       </tr>
       </thead>
-      {!data.loading && <TableBody records={records(dig(data, recordsKey), _.keys(columns))} />}
+      {!loading && <TableBody items={computeItems(items, _.keys(columns))} />}
     </table>
   </div>
 )
 
 export default Table
 
-const records = (records, fields) => (
-  records.map(record => {
-    let mappedRecord = {id: record.id}
+const computeItems = (items, fields) => (
+  items.map(item => {
+    let mappedItem = {id: item.id}
 
     _.each(fields, field => {
-      const value = dig(record, ...field.split('.'))
+      const value = dig(item, ...field.split('.'))
 
       if (value && _.endsWith(field, "_at"))
-        mappedRecord[field] = moment.utc(value).local().format("DD.MM.YYYY, HH:mm") + " Uhr"
+        mappedItem[field] = moment.utc(value).local().format("DD.MM.YYYY, HH:mm") + " Uhr"
       else
-        mappedRecord[field] = value
+        mappedItem[field] = value
     })
 
-    return mappedRecord
+    return mappedItem
   })
 )
 
 const TableBody = ({
-  records
+  items
 }) => (
   <tbody>
-  {records.map(record => <Row key={record.id} record={record} />)}
+  {items.map(item => <Row key={item.id} item={item} />)}
   </tbody>
 )
 
 const Row = ({
-  record
+  item
 }) => (
   <tr>
     {
-      _.values(_.omit(record, ["id"])).map((value, index) => <Cell key={index} value={value} />)
+      _.values(_.omit(item, ["id"])).map((value, index) => <Cell key={index} value={value} />)
     }
   </tr>
 )

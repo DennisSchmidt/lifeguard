@@ -3,7 +3,21 @@ class UsersResolver
     scope = User.order(args[:order])
     scope = include_associations(scope, ctx.query.query_string)
 
-    filter(scope, args)
+    items = filter(scope, args).page(args[:page]).per(args[:per] ||= Kaminari.default_per_page)
+
+    {
+      items: items,
+      meta: {
+        pagination: {
+          current_page: items.current_page,
+          next_page: items.next_page,
+          prev_page: items.prev_page,
+          total_pages: items.total_pages,
+          total_count: items.total_count,
+          per_page: args[:per]
+        }
+      }
+    }
   end
 
   def include_associations(scope, query_string)

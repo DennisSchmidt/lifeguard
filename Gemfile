@@ -10,6 +10,7 @@ gem 'devise'
 
 gem 'haml'
 gem 'simple_form'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug', platform: :mri

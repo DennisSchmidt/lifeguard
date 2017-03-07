@@ -31,7 +31,12 @@ class SimpleForm extends Component {
 
   render () {
     return (
-      <Formsy.Form ref="form" onValidSubmit={this.submit} onValid={this.props.enableButton} onInvalid={this.props.disableButton}>
+      <Formsy.Form
+        ref="form"
+        onValidSubmit={this.submit}
+        onValid={this.props.enableButton}
+        onInvalid={this.props.disableButton}
+        className={this.props.className}>
         {this.props.children}
       </Formsy.Form>
     )

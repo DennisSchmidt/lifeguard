@@ -4,9 +4,13 @@ import gql from 'graphql-tag'
 
 import SelectField from '../../../../components/form-fields/select-field'
 
-const DepartmentSelect = ({data}) => (
+const DepartmentSelect = ({
+  data,
+  label = 'Ortsgruppe',
+  size
+}) => (
   <SelectField
-    label="Ortsgruppe"
+    label={label}
     name="department"
     validations="isNumeric"
     options={data.departments}
@@ -14,6 +18,7 @@ const DepartmentSelect = ({data}) => (
     prompt="Bitte Ortsgruppe wählen"
     required
     validationError="Bitte Ortsgruppe auswählen"
+    size={size}
   />
 )
 

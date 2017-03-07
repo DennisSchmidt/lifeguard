@@ -34,6 +34,7 @@ class SelectField extends Component {
     const stateClass = this.props.showRequired() ? 'required' : this.props.showError() ? 'has-error' : null
     const errorMessage = this.props.getErrorMessage()
     const options = this.props.options || []
+    const size = this.props.size || 'default'
 
     return (
       <div className={['form-group', stateClass].join(' ')}>
@@ -41,7 +42,7 @@ class SelectField extends Component {
 
         <select
           ref="selectField"
-          className="bootstrap-select form-control"
+          className={['bootstrap-select', 'form-control', `input-${size}`].join(' ')}
           onChange={this.changeValue}
           name={this.props.name}
           id={inputId}

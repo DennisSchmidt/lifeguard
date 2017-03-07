@@ -9,6 +9,7 @@ UsersField = GraphQL::Field.define do
   argument :email, types.String
   argument :page, types.Int
   argument :per, types.Int
+  argument :department_id, types.Int
 
   argument :order, types.String, default_value: 'first_name, last_name'
 

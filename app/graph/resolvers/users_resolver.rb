@@ -32,6 +32,10 @@ class UsersResolver
       scope = scope.where("#{attr} LIKE '%#{args[attr]}%'") if args[attr]
     end
 
+    %w(department_id).each do |attr|
+      scope = scope.where(attr => args[attr]) if args[attr]
+    end
+
     scope
   end
 end

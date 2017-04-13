@@ -14,3 +14,8 @@ development:
 test:
   <<: *defaults
   database: lifeguard_test
+
+production:
+  <<: *defaults
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  database: lifeguard_production

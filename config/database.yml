@@ -1,9 +1,11 @@
 defaults: &defaults
-  username: dennis
+  username: db-user
   password:
   adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: db
+  port: 5432
 
 development:
   <<: *defaults

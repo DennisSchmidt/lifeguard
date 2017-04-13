@@ -49,6 +49,6 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_controller.asset_host = Proc.new { |source|
-    "http://localhost:8080" unless MANIFEST_PATHS.present?
+    "http://localhost:8090" unless MANIFEST_PATHS.present?
   }
 end

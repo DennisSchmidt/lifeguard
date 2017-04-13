@@ -101,7 +101,8 @@ export default graphql(
         page: 1,
         per: 15,
         department: null
-      }
+      },
+      forceFetch: true
     }),
 
     props: ({ data: { loading, users, fetchMore } }) => ({
